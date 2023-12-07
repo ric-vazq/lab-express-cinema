@@ -13,20 +13,24 @@ const express = require('express');
 // https://www.npmjs.com/package/hbs
 const hbs = require('hbs');
 
+
 const app = express();
+
 
 // ℹ️ This function is getting exported from the config folder. It runs most middlewares
 require('./config')(app);
 
-// default value for title local
-const projectName = 'lab-express-cinema';
-const capitalized = string => string[0].toUpperCase() + string.slice(1).toLowerCase();
-
-app.locals.title = `${capitalized(projectName)}- Generated with Ironlauncher`;
+app.locals.title = `Cinema Ironhack`;
 
 // 👇 Start handling routes here
 const index = require('./routes/index');
 app.use('/', index);
+
+const movies = require('./routes/movies')
+app.use('/', movies);
+
+const movieById = require('./routes/movie/:id')
+app.use('/', movieById);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require('./error-handling')(app);
