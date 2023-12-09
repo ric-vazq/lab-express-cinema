@@ -14,4 +14,14 @@ router.get('/movies', (req, res, next) => {
         })
 });
 
+router.get('/movie/:id', (req, res, next) => {
+    movieId = req.params.id;
+    Movie.findById(movieId)
+        .then(movieData => {
+            console.log(movieData);
+            res.render("movieData", movieData)
+        })
+
+});
+
 module.exports = router;
